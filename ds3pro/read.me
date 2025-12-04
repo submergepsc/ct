@@ -1,0 +1,37 @@
+# DS3 课程规划 Qt 示例
+
+该示例提供一个基于 Qt Widgets 的桌面应用，用于演示“尽可能集中前期排课”与“逐学期展开”两种课程编排思路。界面包含标题、说明文本与示例表格，可在此基础上扩展互动功能（如加载课程数据、验证先修关系或导出方案）。
+
+## 项目结构
+- `project.pro`：qmake 项目文件，可直接使用 Qt Creator 打开并构建。
+- `CMakeLists.txt`：CMake 构建脚本，启用 `AUTOMOC/AUTOUIC/AUTORCC`，自动处理 `ui` 文件。
+- `main.cpp` / `mainwindow.*`：应用入口、主窗口类及 Qt Designer 生成的 `ui` 文件。
+
+## 使用 qmake 构建
+1. 安装 Qt 6（含 Widgets 模块）。
+2. 在 `ds3pro` 目录下执行：
+   ```bash
+   qmake project.pro
+   make -j
+   ```
+3. 运行生成的可执行文件（Linux/macOS 约为 `./ds3pro`，Windows 为 `ds3pro.exe`）。
+
+## 使用 CMake 构建
+1. 安装 Qt 6（含 Widgets 模块）与 CMake 3.16+。
+2. 在项目根目录创建构建目录并生成工程：
+   ```bash
+   cmake -S . -B build -DCMAKE_PREFIX_PATH=/path/to/Qt
+   ```
+3. 编译可执行文件：
+   ```bash
+   cmake --build build
+   ```
+4. 运行应用：
+   ```bash
+   ./build/ds3pro
+   ```
+
+## 自定义建议
+- 在 `mainwindow.ui` 中调整表格列、行及文本描述，使其符合真实课程与先修关系。
+- 可在 `MainWindow` 中添加加载 JSON/CSV 的逻辑，根据依赖自动计算学期编排。
+- 如需展示不同策略，可添加 Tab、切换按钮或图表组件，对比前期集中与逐学期分布的差异。
