@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DS3 课程规划演示</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="titleLabel">
+      <property name="text">
+       <string>DS3 课程规划演示</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-size:20pt; font-weight:600;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="descriptionLabel">
+      <property name="text">
+       <string>示例窗口展示了两种课程编排方式：尽可能集中在前几个学期，以及按原始顺序逐学期展开。可以在此基础上扩展表格、表单或图表，快速验证排课策略。</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="planTable">
+      <property name="columnCount">
+       <number>4</number>
+      </property>
+      <property name="rowCount">
+       <number>4</number>
+      </property>
+      <column>
+       <property name="text">
+        <string>课程编号</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>课程名称</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>学期</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>编排方式</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>C1</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>高等数学</string>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>1</string>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>集中排课</string>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>C2</string>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>线性代数</string>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>1</string>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>集中排课</string>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>C3</string>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>普通物理</string>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>2</string>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>集中排课</string>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>C4</string>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>数值分析</string>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>3</string>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>逐学期展开</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="hintLabel">
+      <property name="text">
+       <string>可根据需要调整课程数量、先修关系和学期分布，并扩展交互逻辑以验证排课是否满足前置约束和学分上限。</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
