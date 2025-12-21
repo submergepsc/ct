@@ -1,10 +1,11 @@
 #pragma once
 
+#include <QList>
+#include <QHash>
+#include <QVector>
+#include <QSet>
 #include <QString>
 #include <QStringList>
-#include <QList>
-#include <QSet>
-#include <QVector>
 
 struct Course {
     QString id;

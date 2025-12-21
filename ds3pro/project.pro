@@ -1,9 +1,11 @@
 TEMPLATE = app
-CONFIG += console c++17
+CONFIG += c++17
 CONFIG -= app_bundle
-QT += core
+QT += widgets
 
-SOURCES += src/main.cpp \
-           src/scheduler.cpp
+SOURCES += main.cpp \
+           scheduler.cpp
 
-HEADERS += src/scheduler.h
+HEADERS += scheduler.h
+
+FORMS += schedulerwidget.ui
