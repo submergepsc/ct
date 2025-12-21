@@ -16,8 +16,14 @@ public:
 
 private slots:
     void runSchedule();
+    void loadFromFile();
 
 private:
+    QString defaultCoursesPath() const;
+    QString defaultOutputPath() const;
+    void ensureSampleCourseFile();
+    bool loadCoursesFromFile(const QString &path);
+    QList<Course> parseCoursesFromText(const QString &text);
     QList<Course> sampleCourses() const;
 
     Ui::MainWindow *ui;
