@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QTextStream>
 
+#include "coursedata.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::MainWindow)
@@ -41,84 +43,26 @@ QString MainWindow::defaultOutputPath() const
 
 void MainWindow::ensureSampleCourseFile()
 {
-    QFile file(defaultCoursesPath());
-    if (file.exists()) return;
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream out(&file);
-        out.setCodec("UTF-8");
-        out << "# 课程号,课程名称,学分,先修课(以;分隔)\n";
-        for (const auto &c : sampleCourses()) {
-            out << c.id << "," << c.name << "," << c.credits << ",";
-            out << c.prerequisites.join(";") << "\n";
-        }
-    }
+    QString error;
+    CourseIO::writeIfMissing(defaultCoursesPath(), CourseIO::defaultCourses(), error);
 }
 
 bool MainWindow::loadCoursesFromFile(const QString &path)
 {
-    QFile file(path);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    QString content;
+    QString error;
+    if (!CourseIO::loadFile(path, content, error)) {
         QMessageBox::warning(this, QStringLiteral("读取失败"),
-                             QStringLiteral("无法读取课程文件：%1").arg(path));
+                             QStringLiteral("无法读取课程文件：%1\n%2").arg(path, error));
         return false;
     }
-    QTextStream in(&file);
-    in.setCodec("UTF-8");
-    ui->courseInput->setPlainText(in.readAll());
+    ui->courseInput->setPlainText(content);
     return true;
-}
-
-QList<Course> MainWindow::sampleCourses() const
-{
-    return {
-        {"c1", "程序设计基础", 2, {}},
-        {"c2", "高等数学", 3, {"c1"}},
-        {"c3", "数据结构", 4, {"c1"}},
-        {"c4", "汇编语言", 3, {"c1"}},
-        {"c5", "高级语言程序设计", 2, {"c3", "c4"}},
-        {"c6", "计算机原理", 4, {"c2", "c4"}},
-        {"c7", "编译原理", 3, {"c3", "c5"}},
-        {"c8", "操作系统", 4, {"c5", "c6"}},
-        {"c9", "软件工程", 7, {"c7", "c8"}},
-        {"c10", "计算机网络", 5, {"c6"}},
-        {"c11", "数值计算", 2, {"c2"}},
-        {"c12", "数值分析", 3, {"c1", "c6", "c10"}},
-    };
 }
 
 QList<Course> MainWindow::parseCoursesFromText(const QString &text)
 {
-    QList<Course> courses;
-    const auto lines = text.split('\n', Qt::SkipEmptyParts);
-    for (const auto &line : lines) {
-        const QString trimmed = line.trimmed();
-        if (trimmed.startsWith("#") || trimmed.isEmpty()) continue;
-
-        const auto parts = trimmed.split(',');
-        if (parts.size() < 3) {
-            throw SchedulerError(QStringLiteral("课程行缺少字段：%1").arg(trimmed));
-        }
-        Course c;
-        c.id = parts.at(0).trimmed();
-        c.name = parts.at(1).trimmed();
-        bool okCredits = false;
-        c.credits = parts.at(2).trimmed().toInt(&okCredits);
-        if (!okCredits) {
-            throw SchedulerError(QStringLiteral("课程 %1 学分无效").arg(c.id));
-        }
-        if (parts.size() >= 4) {
-            const auto prereqStr = parts.at(3).trimmed();
-            if (!prereqStr.isEmpty()) {
-                c.prerequisites = prereqStr.split(';', Qt::SkipEmptyParts);
-                for (auto &p : c.prerequisites) p = p.trimmed();
-            }
-        }
-        courses.push_back(c);
-    }
-    if (courses.isEmpty()) {
-        throw SchedulerError(QStringLiteral("课程列表为空"));
-    }
-    return courses;
+    return CourseIO::parse(text);
 }
 
 void MainWindow::runSchedule()

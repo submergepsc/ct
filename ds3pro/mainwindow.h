@@ -24,7 +24,6 @@ private:
     void ensureSampleCourseFile();
     bool loadCoursesFromFile(const QString &path);
     QList<Course> parseCoursesFromText(const QString &text);
-    QList<Course> sampleCourses() const;
 
     Ui::MainWindow *ui;
 };

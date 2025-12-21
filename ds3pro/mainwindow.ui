@@ -93,6 +93,20 @@
       <item row="2" column="1">
        <widget class="QComboBox" name="strategyCombo"/>
       </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="courseIdRuleLabel">
+        <property name="text">
+         <string>课程号规则</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="courseIdRuleValue">
+        <property name="text">
+         <string>固定 3 位字母或数字</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
