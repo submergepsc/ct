@@ -4,8 +4,10 @@ CONFIG -= app_bundle
 QT += widgets
 
 SOURCES += main.cpp \
+           mainwindow.cpp \
            scheduler.cpp
 
-HEADERS += scheduler.h
+HEADERS += mainwindow.h \
+           scheduler.h
 
-FORMS += schedulerwidget.ui
+FORMS += mainwindow.ui

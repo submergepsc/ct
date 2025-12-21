@@ -26,6 +26,11 @@ struct ScheduleResult {
     int totalCourses() const;
 };
 
+enum class SchedulingStrategy {
+    BalanceLoad,
+    Frontload
+};
+
 class SchedulerError {
 public:
     explicit SchedulerError(QString message) : m_message(std::move(message)) {}
@@ -37,7 +42,10 @@ private:
 
 class Scheduler {
 public:
-    ScheduleResult schedule(int semesterCount, int creditLimit, const QList<Course> &courses) const;
+    ScheduleResult schedule(int semesterCount,
+                            int creditLimit,
+                            const QList<Course> &courses,
+                            SchedulingStrategy strategy) const;
 
 private:
     bool hasCycle(const QList<Course> &courses) const;
